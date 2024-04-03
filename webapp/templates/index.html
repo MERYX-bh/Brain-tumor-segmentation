@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Image Segmentation with U-Net</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            color: #333;
+        }
+        h1 {
+            color: #005792;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .image-preview {
+            border: 3px solid #005792;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            background-color: #fff;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .image-preview img {
+            width: auto;
+            max-width: 100%;
+            height: auto;
+            max-height: 100%;
+        }
+        .image-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        input[type="file"] {
+            border: 2px solid #005792;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            outline: none;
+        }
+        input[type="button"] {
+            background-color: #005792;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        input[type="button"]:hover {
+            background-color: #013a63;
+        }
+
+        /* Style pour le bouton personnalisé et le conteneur de l'input file */
+        .custom-file-upload {
+            border: 2px solid #005792;
+            display: inline-block;
+            padding: 6px 12px;
+            cursor: pointer;
+            border-radius: 5px;
+            background-color: #005792;
+            color: white;
+            margin-bottom: 10px;
+        }
+
+        #file-upload-input {
+            display: none; /* Cache l'input file original */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Image Segmentation with U-Net</h1>
+        <form id="uploadForm" action="/predict" method="post" enctype="multipart/form-data">
+          <label for="file-upload-input" class="custom-file-upload">
+                Upload Image
+          </label>
+        <input id="file-upload-input" type="file" name="file" accept="image/*" onchange="previewImage();"/>
+
+            <input type="button" value="Predict" onclick="submitImage();">
+        </form>
+        <div class="image-container">
+            <div class="image-preview" id="inputImagePreview" style="width: 300px; height: 300px;">Image will be displayed here</div>
+            <div class="image-preview" id="outputImagePreview" style="width: 300px; height: 300px;">Prediction will be displayed here</div>
+        </div>
+    </div>
+
+    <script>
+        function previewImage() {
+    var input = document.getElementById('file-upload-input');
+    if(input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            var output = document.getElementById('inputImagePreview');
+            output.innerHTML = '<img src="' + e.target.result + '" />';
+        }
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+
+        function submitImage() {
+            var form = document.getElementById('uploadForm');
+            var formData = new FormData(form);
+
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", form.action, true);
+            xhr.responseType = 'blob'; // Assurez-vous que la réponse est gérée comme un blob
+            xhr.onload = function () {
+                if (this.status == 200) {
+                    var blob = this.response;
+                    var img = document.createElement('img'); // Créez une nouvelle image
+                    img.style.width = '300px'; // Ajustez la taille comme nécessaire
+                    img.style.height = '300px';
+                    img.onload = function() {
+                        URL.revokeObjectURL(img.src); // Nettoyez après avoir chargé l'image
+                    };
+                    img.src = URL.createObjectURL(blob);
+                    document.getElementById('outputImagePreview').innerHTML = '';
+                    document.getElementById('outputImagePreview').appendChild(img); // Ajoutez l'image au conteneur
+                } else {
+                    console.error('Erreur lors de la requête: ' + xhr.statusText); // Gestion des erreurs
+                }
+            };
+            xhr.onerror = function() {
+                console.error('Erreur lors de la requête');
+            };
+            xhr.send(formData);
+        }
+
+    </script>
+</body>
+</html>
