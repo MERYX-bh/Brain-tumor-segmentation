@@ -39,6 +39,7 @@ Here's the link to the dataset: https://www.kaggle.com/datasets/mateuszbuda/lgg-
 
 ### Image Suggestions:
 Here are some examples of MRI scans from the test set, alongside their ground truth and predicted segmentations.
-![Brain Tumor images from dataset](https://github.com/MERYX-bh/Brain-tumor-segmentation/blob/main/images/exemple1.png)
+![results exemple1](https://github.com/MERYX-bh/Brain-tumor-segmentation/blob/main/images/exemple1.png)
+![results exemple2](https://github.com/MERYX-bh/Brain-tumor-segmentation/blob/main/images/exemple2.png)
+![results exemple3](https://github.com/MERYX-bh/Brain-tumor-segmentation/blob/main/images/exemple3.png)
 
-![Brain Tumor images from dataset](https://github.com/MERYX-bh/Brain-tumor-segmentation/blob/main/images/exemple2.png)
