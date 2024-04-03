@@ -34,4 +34,4 @@ The images were obtained from The Cancer Imaging Archive (TCIA).
 They correspond to 110 patients included in The Cancer Genome Atlas (TCGA) lower-grade glioma collection with at least fluid-attenuated inversion recovery (FLAIR) sequence and genomic cluster data available.
 Here's the link to the dataset: https://www.kaggle.com/datasets/mateuszbuda/lgg-mri-segmentation
 
-![Brain Tumor images from dataset](https://github.com/yourusername/yourrepository/blob/main/path/to/image.png)
+![Brain Tumor images from dataset](https://github.com/MERYX-bh/Brain-tumor-segmentation/blob/main/images/dataset.png)
