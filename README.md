@@ -22,7 +22,7 @@ This project focuses on the application of the U-Net convolutional neural networ
 ## Installation
 1. **Clone the Repository**: `git clone https://github.com/MERYX-bh/Brain-tumor-segmentation`
 2. **Install Dependencies**: Run `pip install -r requirements.txt` to install required libraries.
-3. 3. **Go to the web app directory**: run `cd webapp`
+3. **Go to the web app directory**: run `cd webapp`
 4. **Launch the web app**: run `python app.py`
 
 ## Web App Interface
